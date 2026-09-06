@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Fond -->
+  <rect x="0" y="0" width="200" height="200" rx="40" fill="#12213D"/>
+
+  <!-- Accent pixels -->
+  <rect x="28" y="28" width="36" height="36" fill="#E67E12"/>
+  <rect x="72" y="28" width="18" height="18" fill="#E67E12"/>
+  <rect x="28" y="72" width="18" height="18" fill="#E67E12"/>
+
+  <!-- Moniteur -->
+  <rect x="64" y="56" width="104" height="76" rx="10" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+
+  <!-- Engrenage / solution -->
+  <circle cx="116" cy="94" r="17" fill="none" stroke="#E67E12" stroke-width="8"/>
+  <circle cx="116" cy="94" r="5" fill="#E67E12"/>
+
+  <!-- Socle du moniteur -->
+  <line x1="96" y1="146" x2="136" y2="146" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+</svg>
