@@ -114,12 +114,28 @@
     transition:all .2s;
   }
   .btn-solid{background:var(--orange); color:#fff;}
-  .btn-solid:hover{background:var(--orange-deep);}
+  .btn-solid:hover{background:var(--orange-deep); transform:translateY(-2px); box-shadow:0 10px 22px rgba(230,126,18,0.28);}
+  .btn-solid:active{transform:translateY(0); box-shadow:none;}
   .btn-ghost{border:1px solid rgba(255,255,255,0.35); color:#fff;}
-  .btn-ghost:hover{border-color:#fff; background:rgba(255,255,255,0.06);}
+  .btn-ghost:hover{border-color:#fff; background:rgba(255,255,255,0.06); transform:translateY(-2px);}
+  .btn-ghost:active{transform:translateY(0);}
+  .btn-arrow{display:inline-block; transition:transform .2s ease;}
+  .btn:hover .btn-arrow{transform:translateX(4px);}
 
   .hero-art{position:relative; aspect-ratio:1/1; max-width:340px; margin:0 auto;}
   .hero-art svg{width:100%; height:100%;}
+
+  /* ---------- STATS ---------- */
+  .stats{background:var(--navy-deep); padding:52px 0;}
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:24px; text-align:center;
+  }
+  .stat-item{padding:0 12px;}
+  .stat-num{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; color:var(--orange);
+    font-size:clamp(30px,4vw,42px); line-height:1;
+  }
+  .stat-label{color:#B9C2D1; font-size:14px; margin-top:8px;}
 
   /* ---------- SERVICES ---------- */
   .section{padding:96px 0;}
@@ -138,17 +154,105 @@
     position:relative;
     display:grid; grid-template-columns:60px 1fr; gap:28px;
     padding:26px 0;
+    transition:padding-left .25s ease;
   }
+  .service-row:hover{padding-left:8px;}
   .service-row:not(:last-child){border-bottom:1px solid var(--line-dark);}
   .node{
     width:60px; height:60px; border-radius:50%;
     background:var(--cream); border:2px solid var(--orange);
     display:flex; align-items:center; justify-content:center;
     position:relative; z-index:2;
+    transition:background .25s ease, transform .25s ease;
   }
-  .node svg{width:26px; height:26px; stroke:var(--orange);}
+  .service-row:hover .node{background:var(--orange); transform:scale(1.06);}
+  .service-row:hover .node svg{stroke:#fff;}
+  .node svg{width:26px; height:26px; stroke:var(--orange); transition:stroke .25s ease;}
   .service-row h3{font-size:19px; color:var(--navy); margin-bottom:6px;}
   .service-row p{color:var(--slate); font-size:15px; max-width:56ch;}
+  .service-link{
+    display:inline-flex; align-items:center; gap:6px; margin-top:10px;
+    color:var(--orange); font-weight:600; font-size:14px;
+  }
+  .service-link svg{width:14px; height:14px; stroke:var(--orange); transition:transform .2s ease;}
+  .service-link:hover svg{transform:translateX(3px);}
+
+  /* ---------- COMPÉTENCES ---------- */
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+  }
+  .skill-card{
+    background:#fff; border:1px solid var(--line-dark); border-radius:10px;
+    padding:24px 22px; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .skill-card:hover{transform:translateY(-4px); box-shadow:0 16px 32px rgba(18,33,61,0.1); border-color:var(--orange);}
+  .skill-card .skill-icon{font-size:26px; line-height:1;}
+  .skill-card h3{font-size:16.5px; color:var(--navy); margin-top:14px;}
+  .skill-card p{color:var(--slate); font-size:14px; margin-top:8px;}
+
+  /* ---------- RÉALISATIONS ---------- */
+  .projects-note{color:var(--slate); font-size:13.5px; font-style:italic; margin-top:-36px; margin-bottom:44px;}
+  .projects-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:26px;
+  }
+  .project-card{
+    background:#fff; border:1px solid var(--line-dark); border-radius:12px;
+    overflow:hidden; display:flex; flex-direction:column;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .project-card:hover{transform:translateY(-4px); box-shadow:0 18px 36px rgba(18,33,61,0.12);}
+  .project-thumb{
+    aspect-ratio:16/10; background:linear-gradient(135deg, var(--navy), var(--navy-deep));
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .project-thumb svg{width:44px; height:44px; stroke:var(--orange);}
+  .project-body{padding:22px; display:flex; flex-direction:column; flex:1;}
+  .project-body h3{font-size:17.5px; color:var(--navy); margin-bottom:8px;}
+  .project-body p{color:var(--slate); font-size:14.5px; flex:1;}
+  .project-tags{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 18px;}
+  .project-tag{
+    background:var(--cream); border:1px solid var(--line-dark); color:var(--navy);
+    font-size:12px; font-weight:600; padding:4px 10px; border-radius:20px;
+  }
+  .project-link{
+    color:var(--orange); font-weight:600; font-size:14.5px;
+    display:inline-flex; align-items:center; gap:6px; align-self:flex-start;
+  }
+  .project-link svg{width:15px; height:15px; stroke:var(--orange); transition:transform .2s ease;}
+  .project-link:hover svg{transform:translateX(3px);}
+
+  /* ---------- À PROPOS : intro + vision/objectifs ---------- */
+  .about-intro{color:var(--slate); font-size:16px; max-width:74ch; margin-bottom:36px;}
+  .vision-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:940px; margin-top:28px;
+  }
+  .vg-card{
+    background:#fff; border:1px solid var(--line-dark); border-left:3px solid var(--orange);
+    border-radius:8px; padding:26px;
+  }
+  .vg-card h3{font-size:17px; color:var(--navy); margin-bottom:10px;}
+  .vg-card p{color:var(--slate); font-size:14.5px;}
+  .vg-card ul{color:var(--slate); font-size:14.5px; padding-left:18px; margin-top:2px;}
+  .vg-card ul li{margin-bottom:6px;}
+
+  /* ---------- TÉMOIGNAGES ---------- */
+  .testimonials-empty{
+    background:#fff; border:1px dashed var(--line-dark); border-radius:12px;
+    padding:44px 32px; text-align:center; max-width:640px;
+  }
+  .testimonials-empty .quote-icon{font-size:30px; color:var(--orange); line-height:1;}
+  .testimonials-empty p{color:var(--slate); font-size:15.5px; margin-top:14px; max-width:48ch; margin-left:auto; margin-right:auto;}
+  .testimonials-empty .btn{margin-top:20px;}
+  .testimonial-card{
+    background:#fff; border:1px solid var(--line-dark); border-radius:12px;
+    padding:28px; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .testimonial-card:hover{transform:translateY(-4px); box-shadow:0 16px 32px rgba(18,33,61,0.1);}
+  .testimonial-stars{color:var(--orange); font-size:14px; letter-spacing:2px;}
+  .testimonial-quote{color:var(--ink); font-size:15px; margin-top:12px; line-height:1.7;}
+  .testimonial-person{display:flex; align-items:center; gap:12px; margin-top:18px;}
+  .testimonial-avatar{width:44px; height:44px; border-radius:50%; object-fit:cover;}
+  .testimonial-name{font-weight:600; color:var(--navy); font-size:14.5px;}
 
   /* ---------- WHY US ---------- */
   .why{background:var(--navy-deep); color:#fff;}
@@ -173,10 +277,9 @@
     padding:36px; max-width:640px;
     box-shadow:0 24px 48px rgba(11,22,38,0.18);
     position:relative; overflow:hidden;
-    opacity:0; transform:translateY(18px);
-    transition:opacity .6s ease, transform .6s ease;
   }
-  .profile-card.in-view{opacity:1; transform:translateY(0);}
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
   .profile-card::before{
     content:'';
     position:absolute; top:0; left:0; right:0; height:3px;
@@ -209,6 +312,22 @@
   .info-row .info-value{color:#fff; font-size:15px; text-align:right;}
   .info-row .info-value a{color:#fff; transition:color .2s ease;}
   .info-row .info-value a:hover{color:var(--orange);}
+
+  /* ---------- MÉTHODE DE TRAVAIL ---------- */
+  .method-steps{max-width:600px;}
+  .method-step{display:flex; align-items:flex-start; gap:24px;}
+  .method-num{
+    width:54px; height:54px; border-radius:50%; flex-shrink:0;
+    background:var(--navy); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:17px;
+  }
+  .method-step h3{font-size:18.5px; color:var(--navy); margin-bottom:6px; margin-top:10px;}
+  .method-step p{color:var(--slate); font-size:14.5px; max-width:52ch;}
+  .method-arrow{
+    color:var(--orange); font-size:20px; line-height:1;
+    margin:8px 0 8px 26px;
+  }
 
   /* ---------- CONTACT ---------- */
   .contact{background:var(--navy-deep); color:#fff; position:relative; overflow:hidden;}
@@ -260,18 +379,28 @@
   .contact-card h3 span{color:var(--orange);}
   .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
   .contact-form label{display:block; font-size:13px; font-weight:500; color:#9AA5B6; margin-bottom:6px;}
-  .contact-form input, .contact-form textarea{
+  .contact-form input, .contact-form textarea, .contact-form select{
     width:100%; padding:11px 13px; margin-bottom:16px;
-    border:1px solid rgba(255,255,255,0.14); border-radius:5px;
+    border:1px solid rgba(255,255,255,0.14); border-radius:8px;
     font-family:'Inter', sans-serif; font-size:14.5px; color:#fff;
     background:#0F1720;
-    transition:border-color .2s ease;
+    transition:border-color .2s ease, box-shadow .2s ease;
+    appearance:none;
   }
+  .contact-form select{
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239AA5B6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat:no-repeat; background-position:right 13px center; background-size:16px;
+    padding-right:36px; cursor:pointer;
+  }
+  .contact-form select option{background:#0F1720; color:#fff;}
   .contact-form input::placeholder, .contact-form textarea::placeholder{color:#6B7480;}
   .contact-form textarea{resize:vertical; min-height:110px;}
-  .contact-form input:focus, .contact-form textarea:focus{
+  .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus{
     outline:2px solid var(--orange); outline-offset:1px; border-color:var(--orange);
+    box-shadow:0 0 0 4px rgba(230,126,18,0.15);
   }
+  .form-note{color:#7C879B; font-size:12.5px; margin-top:12px; text-align:center;}
+  .maps-btn{margin-top:22px;}
   .contact-form .btn-solid{
     width:100%; justify-content:center; border:none; cursor:pointer; border-radius:24px;
     gap:8px;
@@ -294,6 +423,26 @@
   body.dark .service-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,0.1);}
   body.dark .services::before{background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.14) 0 6px, transparent 6px 12px);}
   body.dark .node{background:#0F1720;}
+  body.dark .skill-card{background:#16202C; border-color:rgba(255,255,255,0.1);}
+  body.dark .skill-card h3{color:#fff;}
+  body.dark .skill-card p{color:#9AA5B6;}
+  body.dark .project-card{background:#16202C; border-color:rgba(255,255,255,0.1);}
+  body.dark .project-body h3{color:#fff;}
+  body.dark .project-body p{color:#9AA5B6;}
+  body.dark .project-tag{background:#0F1720; border-color:rgba(255,255,255,0.14); color:#E7EAF0;}
+  body.dark .projects-note{color:#9AA5B6;}
+  body.dark .about-intro{color:#9AA5B6;}
+  body.dark .vg-card{background:#16202C; border-color:rgba(255,255,255,0.1); border-left-color:var(--orange);}
+  body.dark .vg-card h3{color:#fff;}
+  body.dark .vg-card p, body.dark .vg-card ul{color:#9AA5B6;}
+  body.dark .method-step h3{color:#fff;}
+  body.dark .method-step p{color:#9AA5B6;}
+  body.dark .method-num{background:var(--orange);}
+  body.dark .testimonials-empty{background:#16202C; border-color:rgba(255,255,255,0.14);}
+  body.dark .testimonials-empty p{color:#9AA5B6;}
+  body.dark .testimonial-card{background:#16202C; border-color:rgba(255,255,255,0.1);}
+  body.dark .testimonial-quote{color:#E7EAF0;}
+  body.dark .testimonial-name{color:#fff;}
 
   /* ---------- BOUTONS FLOTTANTS ---------- */
   .floating-actions{
@@ -321,6 +470,8 @@
     .wrap{padding:0 24px;}
     .hero .wrap{gap:36px;}
     .section{padding:76px 0;}
+    .skills-grid{grid-template-columns:repeat(2,1fr);}
+    .projects-grid{grid-template-columns:repeat(2,1fr);}
   }
 
   @media (max-width:860px){
@@ -331,6 +482,7 @@
     .hero-art{margin-top:20px; max-width:280px;}
     .section{padding:64px 0;}
     .section-head{margin-bottom:40px;}
+    .stats-grid{grid-template-columns:1fr 1fr; row-gap:28px;}
     .why-grid{grid-template-columns:1fr 1fr; row-gap:28px;}
     .why-item{border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:20px;}
     .why-item:first-child{border-top:none; padding-top:0;}
@@ -340,6 +492,12 @@
     .about .wrap{grid-template-columns:1fr; text-align:center;}
     .profile-card{padding:26px;}
     .profile-header{flex-direction:column; text-align:center; gap:14px;}
+    .skills-grid{grid-template-columns:1fr 1fr;}
+    .projects-grid{grid-template-columns:1fr;}
+    .projects-note{margin-top:-24px;}
+    .vision-grid{grid-template-columns:1fr;}
+    .method-num{width:44px; height:44px; font-size:15px;}
+    .method-step p{max-width:none;}
   }
 
   @media (max-width:480px){
@@ -370,7 +528,7 @@
   }
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important;}
-    .profile-card{opacity:1 !important; transform:none !important;}
+    .reveal{opacity:1 !important; transform:none !important;}
   }
   @media (max-width:520px){
     .why-grid{grid-template-columns:1fr;}
@@ -404,8 +562,12 @@
     </a>
     <div class="nav-links">
       <a href="#services">Services</a>
+      <a href="#competences">Compétences</a>
+      <a href="#realisations">Réalisations</a>
       <a href="#apropos">À propos</a>
       <a href="#pourquoi">Pourquoi nous</a>
+      <a href="#temoignages">Témoignages</a>
+      <a href="#methode">Méthode</a>
       <a href="#contact">Contact</a>
     </div>
     <a class="nav-cta" href="https://wa.me/22969862498" target="_blank" rel="noopener">WhatsApp</a>
@@ -418,8 +580,12 @@
 <div class="nav-backdrop" id="navBackdrop"></div>
 <div class="mobile-nav" id="mobileNav">
   <a href="#services">Services</a>
+  <a href="#competences">Compétences</a>
+  <a href="#realisations">Réalisations</a>
   <a href="#apropos">À propos</a>
   <a href="#pourquoi">Pourquoi nous</a>
+  <a href="#temoignages">Témoignages</a>
+  <a href="#methode">Méthode</a>
   <a href="#contact">Contact</a>
   <a class="nav-cta" href="https://wa.me/22969862498" target="_blank" rel="noopener">WhatsApp</a>
 </div>
@@ -430,7 +596,7 @@
       <h1>Votre partenaire technologique</h1>
       <p class="tagline">Des solutions fiables, adaptées à vos besoins. Maintenance, développement, matériel et réseaux — un seul interlocuteur pour toute votre informatique.</p>
       <div class="cta-row">
-        <a class="btn btn-solid" href="https://wa.me/22969862498" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+        <a class="btn btn-solid" href="https://wa.me/22969862498" target="_blank" rel="noopener">Besoin d'une solution informatique ? Parlons-en <span class="btn-arrow">→</span></a>
         <a class="btn btn-ghost" href="#services">Voir nos services</a>
       </div>
     </div>
@@ -459,27 +625,68 @@
   </div>
 </header>
 
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="3" data-suffix="+">0</div>
+        <div class="stat-label">Années de pratique</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="6" data-suffix="">0</div>
+        <div class="stat-label">Services proposés</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="8" data-suffix="">0</div>
+        <div class="stat-label">Domaines de compétence</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="100" data-suffix="%">0</div>
+        <div class="stat-label">Engagement client</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="services">
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">Nos services</div>
       <h2>Tout votre informatique, sous un même toit</h2>
-      <p>Quatre pôles d'expertise pour couvrir vos besoins, de la panne du quotidien au projet numérique complet.</p>
+      <p>Six pôles d'expertise pour couvrir vos besoins, de la panne du quotidien au projet numérique complet.</p>
     </div>
 
-    <div class="services">
+    <div class="services reveal">
       <div class="service-row">
         <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></svg></div>
         <div>
           <h3>Maintenance informatique et installation</h3>
-          <p>Dépannage, entretien, réparation et installation de systèmes, logiciels et périphériques.</p>
+          <p>Diagnostic et dépannage de pannes matérielles et logicielles, maintenance préventive et corrective, assemblage d'ordinateurs, installation et configuration de systèmes d'exploitation et de logiciels.</p>
+          <a class="service-link" href="#contact">En savoir plus <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+      <div class="service-row">
+        <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><path d="M12 7.2V13M12 13 6.4 17.2M12 13l5.6 4.2"/></svg></div>
+        <div>
+          <h3>Réseau informatique</h3>
+          <p>Mise en place et configuration de base de réseaux informatiques pour une connexion fiable et sécurisée.</p>
+          <a class="service-link" href="#contact">En savoir plus <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+      <div class="service-row">
+        <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg></div>
+        <div>
+          <h3>Bureautique et gestion de documents</h3>
+          <p>Saisie, mise en forme et traitement de documents (Word, Excel, PowerPoint), organisation et gestion de fichiers et de données.</p>
+          <a class="service-link" href="#contact">En savoir plus <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </div>
       </div>
       <div class="service-row">
         <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M8 6 3 12l5 6M16 6l5 6-5 6"/></svg></div>
         <div>
-          <h3>Développement</h3>
-          <p>Développement de sites web, applications et solutions sur mesure adaptées à vos besoins.</p>
+          <h3>Développement et sécurité informatique</h3>
+          <p>Notions de programmation et de développement de solutions numériques, ainsi que bonnes pratiques de base en sécurité informatique.</p>
+          <a class="service-link" href="#contact">En savoir plus <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </div>
       </div>
       <div class="service-row">
@@ -487,13 +694,131 @@
         <div>
           <h3>Achat de PC et accessoires</h3>
           <p>Vente d'ordinateurs, accessoires et équipements informatiques de qualité à prix compétitifs.</p>
+          <a class="service-link" href="#contact">En savoir plus <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </div>
       </div>
       <div class="service-row">
-        <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><path d="M12 7.2V13M12 13 6.4 17.2M12 13l5.6 4.2"/></svg></div>
+        <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 8h8M8 12h8M8 16h5"/><circle cx="16.5" cy="16.5" r="0.6" fill="currentColor" stroke="none"/></svg></div>
         <div>
-          <h3>Réseau informatique</h3>
-          <p>Installation, configuration et administration de réseaux pour une connexion fiable et sécurisée.</p>
+          <h3>Création de flyer</h3>
+          <p>Conception de flyers, affiches et supports de communication visuelle pour vos événements, promotions et activités.</p>
+          <a class="service-link" href="#contact">En savoir plus <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="competences">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Compétences</div>
+      <h2>Ce que je maîtrise au quotidien</h2>
+      <p>Des compétences acquises en formation (DTI/IMI) et mises en pratique sur le terrain, projet après projet.</p>
+    </div>
+
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-icon">🔧</div>
+        <h3>Maintenance & dépannage</h3>
+        <p>Diagnostic de pannes matérielles et logicielles, entretien préventif et correctif, assemblage d'ordinateurs.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🖥️</div>
+        <h3>Systèmes & logiciels</h3>
+        <p>Installation et configuration de systèmes d'exploitation et de logiciels.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <h3>Réseaux informatiques</h3>
+        <p>Mise en place et configuration de base de réseaux pour une connexion fiable.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <h3>Bureautique</h3>
+        <p>Word, Excel, PowerPoint — saisie, mise en forme et gestion de documents et de fichiers.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">💻</div>
+        <h3>Programmation & développement</h3>
+        <p>Notions de programmation et de développement de solutions numériques simples.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔐</div>
+        <h3>Sécurité informatique</h3>
+        <p>Notions de base pour protéger vos équipements et vos données.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎨</div>
+        <h3>Création graphique</h3>
+        <p>Conception de flyers et supports visuels pour vos communications.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗣️</div>
+        <h3>Langues</h3>
+        <p>Français (très bonne maîtrise), Anglais (niveau intermédiaire), Fon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="realisations" style="background:var(--cream);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Réalisations</div>
+      <h2>Quelques exemples de projets</h2>
+      <p>Sites, installations réseau, dépannages et créations visuelles : un aperçu du type de projets que nous menons.</p>
+    </div>
+    <p class="projects-note">Exemples à personnaliser : remplacez ces cartes par vos propres réalisations (captures d'écran, clients réels, avant/après).</p>
+
+    <div class="projects-grid reveal">
+      <div class="project-card">
+        <div class="project-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M8 6 3 12l5 6M16 6l5 6-5 6"/></svg>
+        </div>
+        <div class="project-body">
+          <h3>Site vitrine — Exemple client</h3>
+          <p>Création d'un site vitrine one-page pour présenter une activité locale, avec formulaire de contact et prise de rendez-vous WhatsApp.</p>
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">JavaScript</span>
+          </div>
+          <a class="project-link" href="#">Voir le projet
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><path d="M12 7.2V13M12 13 6.4 17.2M12 13l5.6 4.2"/></svg>
+        </div>
+        <div class="project-body">
+          <h3>Installation réseau — Exemple bureau</h3>
+          <p>Mise en place d'un réseau local pour un petit bureau : câblage, configuration du routeur et partage sécurisé des fichiers.</p>
+          <div class="project-tags">
+            <span class="project-tag">Réseau local</span>
+            <span class="project-tag">Sécurisation</span>
+          </div>
+          <a class="project-link" href="#">Voir le projet
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></svg>
+        </div>
+        <div class="project-body">
+          <h3>Maintenance — Exemple parc informatique</h3>
+          <p>Diagnostic et remise en état d'un ensemble d'ordinateurs : réinstallation système, nettoyage matériel et mise à jour des logiciels.</p>
+          <div class="project-tags">
+            <span class="project-tag">Diagnostic</span>
+            <span class="project-tag">Réinstallation système</span>
+          </div>
+          <a class="project-link" href="#">Voir le projet
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
       </div>
     </div>
@@ -508,7 +833,9 @@
       <p>Une entreprise, c'est d'abord une personne de confiance. Voici qui répondra à vos besoins informatiques.</p>
     </div>
 
-    <div class="profile-card">
+    <p class="about-intro"><strong style="color:var(--navy);">CHINO TECH</strong> est une jeune structure informatique basée à Abomey-Calavi, au Bénin. Elle propose des solutions accessibles et fiables : maintenance et dépannage, réseaux, bureautique, notions de développement et de sécurité informatique, ainsi que la création de supports visuels. Fondée et animée par SOGLO Wilfried Emerson Mahugnon, elle mise sur la proximité, le sérieux et un accompagnement personnalisé de chaque client.</p>
+
+    <div class="profile-card reveal">
       <div class="profile-header">
         <img class="profile-avatar" src="assets/founder-wilfried.jpg" alt="SOGLO Wilfried Emerson Mahugnon, Fondateur de CHINO TECH">
         <div>
@@ -529,6 +856,22 @@
         <div class="info-row"><span class="info-label"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>Langues</span><span class="info-value">Français, Anglais, Fon</span></div>
       </div>
     </div>
+
+    <div class="vision-grid reveal">
+      <div class="vg-card">
+        <h3>Notre vision</h3>
+        <p>Devenir une référence locale en solutions informatiques accessibles, en accompagnant particuliers, familles et petites structures dans leurs besoins numériques du quotidien, avec sérieux et proximité.</p>
+      </div>
+      <div class="vg-card">
+        <h3>Nos objectifs</h3>
+        <ul>
+          <li>Offrir un service rapide, fiable et de qualité à chaque client.</li>
+          <li>Élargir progressivement la gamme de services proposés.</li>
+          <li>Construire une relation de confiance durable avec la clientèle.</li>
+          <li>Faire grandir CHINO TECH à Abomey-Calavi et au-delà.</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -538,7 +881,7 @@
       <div class="kicker">Pourquoi nous choisir</div>
       <h2>Une équipe sur laquelle compter</h2>
     </div>
-    <div class="why-grid">
+    <div class="why-grid reveal">
       <div class="why-item">
         <h3>Service rapide et efficace</h3>
         <p>Une prise en charge sans délai, du premier message à l'intervention.</p>
@@ -559,13 +902,97 @@
   </div>
 </section>
 
+<section class="section" id="temoignages">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Témoignages</div>
+      <h2>L'avis de nos clients</h2>
+      <p>Cette section accueillera bientôt les retours de nos premiers clients.</p>
+    </div>
+
+    <div class="testimonials-empty reveal">
+      <div class="quote-icon">"</div>
+      <p>Vous avez déjà fait appel à CHINO TECH ? Partagez votre expérience — avec votre accord, elle apparaîtra ici pour aider d'autres personnes à nous faire confiance.</p>
+      <a class="btn btn-solid" href="https://wa.me/22969862498" target="_blank" rel="noopener">Laisser un avis</a>
+    </div>
+
+    <!--
+      Une fois un vrai témoignage reçu, remplacez le bloc .testimonials-empty
+      ci-dessus par une grille .testimonials-grid de cartes .testimonial-card, par ex. :
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">« Avis réel du client, mot pour mot. »</p>
+          <div class="testimonial-person">
+            <img class="testimonial-avatar" src="assets/xxx.jpg" alt="Prénom du client">
+            <div class="testimonial-name">Prénom</div>
+          </div>
+        </div>
+      </div>
+    -->
+  </div>
+</section>
+
+<section class="section" id="methode" style="background:var(--cream);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Notre méthode</div>
+      <h2>Notre méthode de travail</h2>
+      <p>Un processus simple et transparent, du premier message jusqu'au suivi après intervention.</p>
+    </div>
+
+    <div class="method-steps reveal">
+      <div class="method-step">
+        <div class="method-num">01</div>
+        <div>
+          <h3>Contact</h3>
+          <p>Vous nous contactez via WhatsApp, téléphone, e-mail ou le formulaire du site pour décrire votre besoin.</p>
+        </div>
+      </div>
+      <div class="method-arrow">↓</div>
+      <div class="method-step">
+        <div class="method-num">02</div>
+        <div>
+          <h3>Diagnostic</h3>
+          <p>Nous analysons votre situation — panne, projet ou besoin — pour cerner précisément la solution adaptée.</p>
+        </div>
+      </div>
+      <div class="method-arrow">↓</div>
+      <div class="method-step">
+        <div class="method-num">03</div>
+        <div>
+          <h3>Proposition</h3>
+          <p>Nous vous présentons une solution claire, avec un délai et un tarif définis avant toute intervention.</p>
+        </div>
+      </div>
+      <div class="method-arrow">↓</div>
+      <div class="method-step">
+        <div class="method-num">04</div>
+        <div>
+          <h3>Réalisation</h3>
+          <p>Nous réalisons le travail convenu : maintenance, installation, développement ou création, dans les règles de l'art.</p>
+        </div>
+      </div>
+      <div class="method-arrow">↓</div>
+      <div class="method-step">
+        <div class="method-num">05</div>
+        <div>
+          <h3>Livraison & suivi</h3>
+          <p>Nous livrons le travail terminé et restons disponibles pour tout ajustement ou question après l'intervention.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section contact" id="contact">
   <div class="wrap">
     <div>
-      <h2>Travaillons ensemble</h2>
+      <h2>Besoin d'une solution informatique ?</h2>
       <p class="lead">Une panne à dépanner, un site à créer, un réseau à sécuriser ? Décrivez-nous votre besoin et nous revenons vers vous avec une réponse claire, sans détour.</p>
       <div class="cta-row">
-        <a class="btn btn-solid large" href="https://wa.me/22969862498" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+        <a class="btn btn-solid large" href="https://wa.me/22969862498" target="_blank" rel="noopener">Parlons-en sur WhatsApp <span class="btn-arrow">→</span></a>
       </div>
 
       <div class="contact-info">
@@ -575,7 +1002,7 @@
         </div>
         <div class="contact-info-row">
           <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg></span>
-          <div><div class="label">Appel direct</div><div class="value">01 28 82 08 17</div></div>
+          <div><div class="label">Téléphone</div><div class="value">01 28 82 08 17</div></div>
         </div>
         <div class="contact-info-row">
           <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></span>
@@ -583,12 +1010,21 @@
         </div>
         <div class="contact-info-row">
           <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-          <div><div class="label">Adresse</div><div class="value">Abomey-Calavi, Bénin</div></div>
+          <div><div class="label">Localisation</div><div class="value">Abomey-Calavi, Bénin</div></div>
+        </div>
+        <div class="contact-info-row">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+          <div><div class="label">Horaires</div><div class="value">Lun – Sam : 8h – 19h</div></div>
         </div>
       </div>
+
+      <a class="btn btn-ghost maps-btn" href="https://www.google.com/maps/search/?api=1&query=Abomey-Calavi%2C%20B%C3%A9nin" target="_blank" rel="noopener">
+        Voir sur Google Maps
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </a>
     </div>
 
-    <div class="contact-card">
+    <div class="contact-card reveal">
       <h3>Nous <span>contacter</span></h3>
       <form id="contactForm">
         <div class="form-grid">
@@ -601,12 +1037,32 @@
             <input type="email" id="visitorEmail" name="visitorEmail" placeholder="vous@exemple.com" required>
           </div>
         </div>
+        <div class="form-grid">
+          <div>
+            <label for="visitorPhone">Téléphone (optionnel)</label>
+            <input type="tel" id="visitorPhone" name="visitorPhone" placeholder="+229 01 00 00 00 00">
+          </div>
+          <div>
+            <label for="visitorSubject">Sujet</label>
+            <select id="visitorSubject" name="visitorSubject">
+              <option value="">Choisissez un sujet</option>
+              <option>Maintenance informatique</option>
+              <option>Réseau informatique</option>
+              <option>Bureautique</option>
+              <option>Développement</option>
+              <option>Achat de PC / accessoires</option>
+              <option>Création de flyer</option>
+              <option>Autre</option>
+            </select>
+          </div>
+        </div>
         <label for="visitorMessage">Votre message</label>
         <textarea id="visitorMessage" name="visitorMessage" placeholder="Décrivez brièvement votre besoin..."></textarea>
         <button type="submit" class="btn btn-solid">
           Envoyer
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
+        <p class="form-note">Nous répondons généralement sous 24h.</p>
       </form>
     </div>
   </div>
@@ -708,17 +1164,19 @@
       e.preventDefault();
       const name = document.getElementById('visitorName').value.trim();
       const email = document.getElementById('visitorEmail').value.trim();
+      const phone = document.getElementById('visitorPhone').value.trim();
+      const subject = document.getElementById('visitorSubject').value.trim();
       const message = document.getElementById('visitorMessage').value.trim();
-      const subject = encodeURIComponent('Nouveau message depuis le site CHINO TECH');
+      const mailSubject = encodeURIComponent(subject ? `CHINO TECH — ${subject}` : 'Nouveau message depuis le site CHINO TECH');
       const body = encodeURIComponent(
-        `Nom : ${name || '(non renseigné)'}\nE-mail du visiteur : ${email}\n\nMessage :\n${message || '(aucun message)'}`
+        `Nom : ${name || '(non renseigné)'}\nE-mail du visiteur : ${email}\nTéléphone : ${phone || '(non renseigné)'}\nSujet : ${subject || '(non précisé)'}\n\nMessage :\n${message || '(aucun message)'}`
       );
-      window.location.href = `mailto:chinotech.service@gmail.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:chinotech.service@gmail.com?subject=${mailSubject}&body=${body}`;
     });
   }
-  // Animation d'entrée pour la section À propos, au défilement
+  // Animation d'apparition au défilement (sections, cartes clés)
   if ('IntersectionObserver' in window) {
-    const aboutEls = document.querySelectorAll('.profile-card');
+    const revealEls = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -727,10 +1185,40 @@
         }
       });
     }, { threshold: 0.2 });
-    aboutEls.forEach((el) => revealObserver.observe(el));
+    revealEls.forEach((el) => revealObserver.observe(el));
   } else {
-    document.querySelectorAll('.profile-card').forEach((el) => el.classList.add('in-view'));
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'));
   }
+
+  // Animation des chiffres (compteur) dans la section statistiques
+  if ('IntersectionObserver' in window) {
+    const statEls = document.querySelectorAll('.stat-num');
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = 1200;
+          const start = performance.now();
+          function step(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(eased * target) + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+          statObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.4 });
+    statEls.forEach((el) => statObserver.observe(el));
+  } else {
+    document.querySelectorAll('.stat-num').forEach((el) => {
+      el.textContent = (el.getAttribute('data-target') || '0') + (el.getAttribute('data-suffix') || '');
+    });
+  }
+
 </script>
 </body>
 </html>
