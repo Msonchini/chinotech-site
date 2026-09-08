@@ -1,7 +1,8 @@
 // Enregistre une visite du site (appelée automatiquement depuis index.html)
-const { getStore } = require('@netlify/blobs');
+const { getStore, connectLambda } = require('@netlify/blobs');
 
-exports.handler = async () => {
+exports.handler = async (event) => {
+  connectLambda(event);
   try {
     const store = getStore('chinotech-visits');
     const today = new Date().toISOString().slice(0, 10); // format AAAA-MM-JJ
