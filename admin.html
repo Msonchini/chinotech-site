@@ -82,7 +82,13 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password })
     });
-    if (!res.ok) throw new Error('unauthorized');
+    if (!res.ok) {
+      let detail = '';
+      try { detail = (await res.json()).error || ''; } catch {}
+      const err = new Error(detail || 'unauthorized');
+      err.status = res.status;
+      throw err;
+    }
     return res.json();
   }
 
@@ -113,7 +119,10 @@
       renderStats(data);
       loginCard.style.display = 'none';
       statsCard.style.display = 'block';
-    } catch {
+    } catch (err) {
+      loginError.textContent = err.status === 401
+        ? 'Mot de passe incorrect.'
+        : `Erreur serveur (${err.status || '?'}) : ${err.message}`;
       loginError.style.display = 'block';
     } finally {
       loginBtn.disabled = false;
