@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Administration — CHINO TECH</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#12213D; --navy-deep:#0B1626; --orange:#E67E12; --orange-deep:#C86A08;
+    --cream:#FAF8F4; --ink:#1C1E22; --slate:#6B7280; --line-dark:rgba(18,33,61,0.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;
+       display:flex;align-items:center;justify-content:center;padding:24px}
+  h1,h2{font-family:'Space Grotesk',sans-serif}
+  .card{background:#fff;border:1px solid var(--line-dark);border-radius:6px;padding:32px;
+        max-width:420px;width:100%}
+  .card.wide{max-width:720px}
+  h1{color:var(--navy);font-size:22px;margin-bottom:6px}
+  p.hint{color:var(--slate);font-size:14px;margin-bottom:22px}
+  label{display:block;font-size:13px;font-weight:500;color:var(--slate);margin-bottom:6px}
+  input{width:100%;padding:11px 12px;border:1px solid var(--line-dark);border-radius:4px;
+        font-size:15px;margin-bottom:14px}
+  input:focus{outline:2px solid var(--orange);outline-offset:1px}
+  button{width:100%;padding:12px;background:var(--orange);color:#fff;border:none;
+         border-radius:4px;font-weight:600;font-size:15px;cursor:pointer}
+  button:hover{background:var(--orange-deep)}
+  button:disabled{opacity:.6;cursor:not-allowed}
+  .error{color:#C0392B;font-size:14px;margin-top:12px;display:none}
+  .stats-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px}
+  .total-box{background:var(--navy);color:#fff;border-radius:6px;padding:22px 26px;margin-bottom:26px}
+  .total-box .num{font-family:'Space Grotesk';font-size:36px;font-weight:700;color:var(--orange)}
+  .total-box .label{font-size:13.5px;color:#B9C2D1;margin-top:4px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line-dark)}
+  th{color:var(--slate);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.02em}
+  .logout{margin-top:20px;background:none;color:var(--slate);text-decoration:underline;
+          font-weight:500;font-size:13.5px;padding:0}
+  .logout:hover{background:none;color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="card" id="loginCard">
+  <h1>Espace admin — CHINO TECH</h1>
+  <p class="hint">Entrez le mot de passe pour consulter les statistiques de visite.</p>
+  <form id="loginForm">
+    <label for="pwd">Mot de passe</label>
+    <input type="password" id="pwd" required autofocus>
+    <button type="submit" id="loginBtn">Se connecter</button>
+    <p class="error" id="loginError">Mot de passe incorrect.</p>
+  </form>
+</div>
+
+<div class="card wide" id="statsCard" style="display:none">
+  <div class="stats-header">
+    <h1>Statistiques de visite</h1>
+    <button class="logout" id="logoutBtn">Se déconnecter</button>
+  </div>
+  <div class="total-box">
+    <div class="num" id="totalNum">0</div>
+    <div class="label">visites totales enregistrées</div>
+  </div>
+  <table>
+    <thead><tr><th>Date</th><th>Visites</th></tr></thead>
+    <tbody id="statsBody"></tbody>
+  </table>
+</div>
+
+<script>
+  const loginForm = document.getElementById('loginForm');
+  const loginCard = document.getElementById('loginCard');
+  const statsCard = document.getElementById('statsCard');
+  const loginError = document.getElementById('loginError');
+  const loginBtn = document.getElementById('loginBtn');
+
+  async function loadStats(password) {
+    const res = await fetch('/.netlify/functions/get-stats', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password })
+    });
+    if (!res.ok) throw new Error('unauthorized');
+    return res.json();
+  }
+
+  function renderStats(data) {
+    document.getElementById('totalNum').textContent = data.total;
+    const tbody = document.getElementById('statsBody');
+    tbody.innerHTML = '';
+    if (data.byDate.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="2" style="color:var(--slate)">Aucune visite enregistrée pour le moment.</td></tr>';
+      return;
+    }
+    data.byDate.forEach(({ date, count }) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${date}</td><td>${count}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loginError.style.display = 'none';
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Vérification...';
+    const password = document.getElementById('pwd').value;
+    try {
+      const data = await loadStats(password);
+      sessionStorage.setItem('chinotech-admin-pwd', password);
+      renderStats(data);
+      loginCard.style.display = 'none';
+      statsCard.style.display = 'block';
+    } catch {
+      loginError.style.display = 'block';
+    } finally {
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Se connecter';
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    sessionStorage.removeItem('chinotech-admin-pwd');
+    statsCard.style.display = 'none';
+    loginCard.style.display = 'block';
+    document.getElementById('pwd').value = '';
+  });
+
+  // Reconnexion automatique si le mot de passe est déjà en mémoire de session
+  const savedPwd = sessionStorage.getItem('chinotech-admin-pwd');
+  if (savedPwd) {
+    loadStats(savedPwd).then((data) => {
+      renderStats(data);
+      loginCard.style.display = 'none';
+      statsCard.style.display = 'block';
+    }).catch(() => sessionStorage.removeItem('chinotech-admin-pwd'));
+  }
+</script>
+</body>
+</html>
