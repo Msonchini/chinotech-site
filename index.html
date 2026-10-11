@@ -1335,11 +1335,12 @@
       formNote.style.color = '';
 
       try {
-        const response = await fetch(contactForm.action, {
+        const response = await fetch('https://formsubmit.co/ajax/chinotech.service@gmail.com', {
           method: 'POST',
           headers: { 'Accept': 'application/json' },
           body: new FormData(contactForm)
         });
+        const data = await response.json();
         if (!response.ok) throw new Error('Réponse serveur invalide');
         contactForm.reset();
         label.textContent = 'Message envoyé ✓';
